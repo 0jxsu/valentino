@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Will You Be My Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffb6c1;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px 50px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #e6004c;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #444;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Will you be my Valentine? ❤️</h1>
+    <p style="margin-bottom:15px;">My love, I just want to ask you something special…</p>
+    <p style="font-style:italic;margin-bottom:25px;">You are making me the man I wanted to be, thank you for the love and guidance. 💕</p>
+
+    <div style="display:flex;gap:15px;justify-content:center;">
+      <button id="yesBtn" style="padding:10px 20px;border:none;border-radius:20px;background:#e6004c;color:white;font-size:1rem;cursor:pointer;">Yes 💖</button>
+      <button id="ofCourseBtn" style="padding:10px 20px;border:none;border-radius:20px;background:#ff6f91;color:white;font-size:1rem;cursor:pointer;">Of course 😘</button>
+    </div>
+
+    <img id="surpriseImg" src="baby.png" style="display:none;margin:20px auto 0;max-width:200px;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,.2);" />
+
+    <p id="response" style="margin-top:20px;font-size:1.2rem;color:#e6004c;"></p>
+  </div>
+
+  <audio autoplay loop>
+    <!-- Place your MP3 file in the same folder and name it exactly as below -->
+    <source src="The Night We Met - Lord Huron.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const heartCount = 100; // lots of hearts
+
+    for (let i = 0; i < heartCount; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+      heart.style.opacity = Math.random();
+      heart.style.transform = `scale(${0.5 + Math.random()}) rotate(45deg)`;
+      document.body.appendChild(heart);
+    }
+
+    const response = document.getElementById('response');
+    document.getElementById('yesBtn').onclick = () => {
+      response.textContent = "Date tayu ikaw bayad hehe ❤️";
+      document.getElementById('surpriseImg').style.display = 'block';
+    };
+    };
+
+    document.getElementById('ofCourseBtn').onclick = () => {
+      response.textContent = "Date tayu ikaw bayad hehe ❤️";
+      document.getElementById('surpriseImg').style.display = 'block';
+    };
+    };
+  </script>
+
+</body>
+</html>
