@@ -1,139 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Will You Be My Valentine?</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<meta charset="UTF-8" />
+<title>Will You Be My Valentine?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ffb6c1;
-      overflow: hidden;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
 
-    .container {
-      position: relative;
-      z-index: 2;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 40px 50px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
+body{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#ffb6c1;
+overflow:hidden;
+padding:15px;
+}
 
-    h1 {
-      font-size: 2.5rem;
-      color: #e6004c;
-      margin-bottom: 15px;
-    }
+.container{
+background:rgba(255,255,255,.95);
+padding:25px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+max-width:360px;
+width:100%;
+z-index:2;
+}
 
-    p {
-      font-size: 1.2rem;
-      color: #444;
-    }
+h1{color:#e6004c;margin-bottom:10px;font-size:1.8rem}
+p{font-size:1rem;color:#444}
 
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(45deg);
-      animation: float 8s linear infinite;
-      opacity: 0.7;
-    }
+button{
+padding:12px 20px;
+border:none;
+border-radius:25px;
+background:#e6004c;
+color:white;
+font-size:1rem;
+cursor:pointer;
+width:130px;
+}
 
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
+#surpriseImg{
+display:none;
+margin:20px auto 0;
+max-width:220px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
+.heart{
+position:absolute;
+width:18px;
+height:18px;
+background:red;
+transform:rotate(45deg);
+opacity:.8;
+}
 
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+.heart:before,.heart:after{
+content:'';
+position:absolute;
+width:18px;
+height:18px;
+background:red;
+border-radius:50%;
+}
 
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(45deg); }
-      100% { transform: translateY(-10vh) rotate(45deg); }
-    }
-  </style>
+.heart:before{top:-9px}
+.heart:after{left:-9px}
+
+.float{animation:float 8s linear infinite}
+@keyframes float{
+0%{transform:translateY(100vh) rotate(45deg)}
+100%{transform:translateY(-10vh) rotate(45deg)}
+}
+
+.confetti{
+animation:burst 1.5s ease-out forwards;
+}
+
+@keyframes burst{
+0%{transform:scale(1) translateY(0)}
+100%{transform:scale(.3) translateY(300px);opacity:0}
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="container">
-  <h1>Will you be my Valentine? ❤️</h1>
 
-  <p style="margin-bottom:15px;">My love, I just want to ask you something special…</p>
+<h1>Will you be my Valentine? ❤️</h1>
 
-  <p style="font-style:italic;margin-bottom:25px;">
-    You are making me the man I wanted to be, thank you for the love and guidance. 💕
-  </p>
+<p style="margin-bottom:10px;">My love, I just want to ask you something special…</p>
 
-  <div style="display:flex;gap:15px;justify-content:center;">
-    <button id="yesBtn">Yes 💖</button>
-    <button id="ofCourseBtn">Of course 😘</button>
-  </div>
+<p style="font-style:italic;margin-bottom:20px;">
+You are making me the man I wanted to be, thank you for the love and guidance. 💕
+</p>
 
-  <img id="surpriseImg" src="baby.png.png"
-       style="display:none;margin:20px auto 0;max-width:220px;border-radius:20px;box-shadow:0 5px 15px rgba(0,0,0,.2);" />
+<div style="display:flex;gap:12px;justify-content:center;">
+<button id="yesBtn">Yes 💖</button>
+<button id="ofCourseBtn">Of course 😘</button>
+</div>
 
-  <p id="response" style="margin-top:20px;font-size:1.2rem;color:#e6004c;"></p>
+<img id="surpriseImg" src="baby.png">
+
+<p id="response" style="margin-top:15px;color:#e6004c;font-size:1.1rem;"></p>
+
 </div>
 
 <audio id="loveSong" loop>
-  <source src="The Night We Met - Lord Huron.mp3" type="audio/mp3">
+<source src="The Night We Met - Lord Huron.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-const heartCount = 100;
+const response=document.getElementById("response");
+const img=document.getElementById("surpriseImg");
+const song=document.getElementById("loveSong");
 
-for (let i = 0; i < heartCount; i++) {
-  const heart = document.createElement('div');
-  heart.className = 'heart';
-  heart.style.left = Math.random() * 100 + 'vw';
-  heart.style.animationDuration = 5 + Math.random() * 5 + 's';
-  heart.style.opacity = Math.random();
-  heart.style.transform = `scale(${0.5 + Math.random()}) rotate(45deg)`;
-  document.body.appendChild(heart);
+// floating hearts background
+for(let i=0;i<70;i++){
+let h=document.createElement("div");
+h.className="heart float";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=5+Math.random()*5+"s";
+document.body.appendChild(h);
 }
 
-const response = document.getElementById('response');
-const img = document.getElementById('surpriseImg');
-const song = document.getElementById('loveSong');
-
-function answerYes() {
-  response.textContent = "Date tayu ikaw bayad hehe ❤️";
-  img.style.display = "block";
-  song.play();
+// heart explosion
+function confetti(){
+for(let i=0;i<40;i++){
+let h=document.createElement("div");
+h.className="heart confetti";
+h.style.left=50+Math.random()*40-20+"vw";
+h.style.top="50vh";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),1500);
+}
 }
 
-document.getElementById('yesBtn').onclick = answerYes;
-document.getElementById('ofCourseBtn').onclick = answerYes;
+function answerYes(){
+response.textContent="Date tayu ikaw bayad hehe ❤️";
+img.style.display="block";
+song.play();
+confetti();
+}
+
+yesBtn.onclick=answerYes;
+ofCourseBtn.onclick=answerYes;
 
 </script>
 
 </body>
 </html>
-
