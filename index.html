@@ -99,7 +99,7 @@ animation:burst 1.5s ease-out forwards;
 <p style="margin-bottom:10px;">My love, I just want to ask you something special…</p>
 
 <p style="font-style:italic;margin-bottom:20px;">
-You are making me the man I wanted to be, thank you for the love and guidance. 💕
+You’re making me the man I want to be — thank you for your love and guidance. 💕
 </p>
 
 <div style="display:flex;gap:12px;justify-content:center;">
@@ -116,7 +116,7 @@ You are making me the man I wanted to be, thank you for the love and guidance. �
 <audio id="loveSong" loop>
 <source src="The Night We Met - Lord Huron.mp3.mp3" type="audio/mpeg">
 </audio>
-
+  
 <script>
 
 const response=document.getElementById("response");
@@ -144,11 +144,25 @@ setTimeout(()=>h.remove(),1500);
 }
 }
 
+// BABY POP EFFECT
+function babyBurst(){
+for(let i=0;i<6;i++){
+let b=document.createElement("img");
+b.src="baby.png";
+b.className="babyPop";
+b.style.left=50+Math.random()*40-20+"vw";
+b.style.top="60vh";
+document.body.appendChild(b);
+setTimeout(()=>b.remove(),1500);
+}
+}
+
 function answerYes(){
 response.textContent="Date tayu ikaw bayad hehe ❤️";
 img.style.display="block";
 song.play();
 confetti();
+babyBurst();
 }
 
 yesBtn.onclick=answerYes;
@@ -156,6 +170,8 @@ ofCourseBtn.onclick=answerYes;
 
 </script>
 
+
 </body>
 </html>
+
 
